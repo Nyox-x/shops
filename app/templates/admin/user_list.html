@@ -1,0 +1,90 @@
+{% extends "admin/common.html" %}
+{% block content %}
+
+<table width="1280" height="288" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td align="center" valign="top">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td align="right">&nbsp;</td>
+          <td height="10" colspan="3">&nbsp;</td>
+          <td>&nbsp;</td>
+        <tr>
+          <td align="right">&nbsp;</td>
+          <td height="10" colspan="3">&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right">&nbsp;</td>
+          <td height="10" colspan="3">
+            <form action="">
+              <input type="text" name="keyword" placeholder="请输入用户名或邮箱查询">
+              <input type="submit" value="搜索" />
+            </form>
+        </tr>
+        <tr>
+          <td height="29" align="right">&nbsp;</td>
+          <td width="10" background="{{url_for('static',filename='admin/images/manage_leftTitle_left.GIF')}}">&nbsp;
+          </td>
+          <td width="989" align="center"
+            background="{{url_for('static',filename='admin/images/manage_leftTitle_mid.GIF')}}" class="word_white">
+            <b>用户列表</b>
+          </td>
+          <td width="10" background="{{url_for('static',filename='admin/images/manage_leftTitle_right.GIF')}}">&nbsp;
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+      <table width="92%" height="192" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td valign="top">
+            <table width="100%" height="14" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td height="13" align="center">&nbsp;</td>
+              </tr>
+
+            </table>
+            <table width="100%" height="60" border="1" cellpadding="0" cellspacing="0" bordercolor="#FFFFFF"
+              bordercolordark="#FFFFFF" bordercolorlight="#E6E6E6">
+              <tr bgcolor="#eeeeee">
+                <td width="40%" height="24" align="center">用户名</td>
+                <td width="22%" align="center">电话</td>
+                <td width="11%" align="center">Email</td>
+                <td width="11%" align="center">消费额</td>
+              </tr>
+              {% if page_data.items %}
+              {% for v in page_data.items %}
+              <tr style="padding:5px;">
+                <td height="20" align="center">{{ v.username }}</td>
+                <td align="center">{{ v.phone }}</td>
+                <td align="center">{{ v.email }}</td>
+                <td align="center">{{ v.consumption }}</td>
+              </tr>
+              {% endfor %}
+              {% else %}
+              没有查找的信息
+              {% endif %}
+            </table>
+            {% if page_data %}
+            <tbody>
+              <tr>
+                <td height="30" align="right">当前页数：[{{page_data.page}}/{{page_data.pages}}]&nbsp;
+                  <a href="{{ url_for('admin.user_list',page=1) }}">第一页</a>
+                  {% if page_data.has_prev %}
+                  <a href="{{ url_for('admin.user_list',page=page_data.prev_num) }}">上一页</a>
+                  {% endif %}
+                  {% if page_data.has_next %}
+                  　 <a href="{{ url_for('admin.user_list',page=page_data.next_num) }}">下一页</a>
+                  {% endif %}　
+                  <a href="{{ url_for('admin.user_list',page=page_data.pages) }}">最后一页&nbsp;</a>
+                </td>
+              </tr>
+            </tbody>
+            {% endif %}
+          </td>
+        </tr>
+      </table>
+    </td>
+
+
+    {% endblock %}
